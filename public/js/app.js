@@ -4,24 +4,29 @@ const search = document.querySelector('input');
 const messageone = document.querySelector('#messageone');
 const messagetwo = document.querySelector('#messagetwo');
 
+const toggleline = document.querySelector('#toggle');
+
+
 weatherForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
     const location = search.value;
 
-    const url = '/weather?address=' + location
+    const url = '/weather?address=' + location;
 
-    messageone.textContent = "Loading...";
-    messagetwo.textContent = '';
+    toggleline.style.display = "block";
+
+    messageone.innerHTML = "Loading...";
+    messagetwo.innerHTML = '';
 
     fetch(url).then((response) => {
         response.json().then((data) => {
             if (data.error) {
-                messageone.textContent = data.error;
+                messageone.innerHTML = data.error;
             }
             else {
-                messageone.textContent = data.location;
-                messagetwo.textContent = data.forecast;
+                messageone.innerHTML = data.location;
+                messagetwo.innerHTML = data.forecast;
             }
             search.value = '';
         })
